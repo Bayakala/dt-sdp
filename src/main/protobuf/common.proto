@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package sdp.grpc.services;
+
+message HelloMsg {
+  string hello = 1;
+}
+
+message DataRow {
+    string countyname = 1;
+    string statename = 2;
+    int32 reportyear = 3;
+    int32 value = 4;
+}

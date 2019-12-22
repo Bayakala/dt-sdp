@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/any.proto";
+import "scalapb/scalapb.proto";
+
+
+option (scalapb.options) = {
+  // use a custom Scala package name
+  // package_name: "io.ontherocks.introgrpc.demo"
+
+  // don't append file name to package
+  flat_package: true
+
+  // generate one Scala file for all messages (services still get their own file)
+  single_file: true
+
+  // add imports to generated file
+  // useful when extending traits or using custom types
+  // import: "io.ontherocks.hellogrpc.RockingMessage"
+
+  // code to put at the top of generated file
+  // works only with `single_file: true`
+  //preamble: "sealed trait SomeSealedTrait"
+};
+
+/*
+ * Demoes various customization options provided by ScalaPBs.
+ */
+
+package sdp.grpc.services;
+
+import "misc/sdp.proto";
+import "common.proto";
+import "cql/cql.proto";
+import "jdbc/jdbc.proto";
+import "mgo/mgo.proto";
+
+
+service DEMOServices {
+  rpc clientStreaming(stream HelloMsg) returns (stream HelloMsg) {}
+  rpc runJDBCQuery(stream ProtoJDBCQuery) returns (stream DataRow) {}
+  rpc runCQLQuery(stream ProtoCQLQuery) returns (stream DataRow) {}
+  rpc runMGOQuery(stream ProtoMGOContext) returns (stream DataRow) {}
+}
+
+

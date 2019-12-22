@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/any.proto";
+import "scalapb/scalapb.proto";
+
+option (scalapb.options) = {
+  // use a custom Scala package name
+  // package_name: "io.ontherocks.introgrpc.demo"
+
+  // don't append file name to package
+  flat_package: true
+
+  // generate one Scala file for all messages (services still get their own file)
+  single_file: true
+
+  // add imports to generated file
+  // useful when extending traits or using custom types
+  // import: "io.ontherocks.hellogrpc.RockingMessage"
+
+  // code to put at the top of generated file
+  // works only with `single_file: true`
+  //preamble: "sealed trait SomeSealedTrait"
+};
+
+package sdp.grpc.services;
+
+
+message ProtoDate {
+  int32 yyyy = 1;
+  int32 mm   = 2;
+  int32 dd   = 3;
+}
+
+message ProtoTime {
+  int32 hh   = 1;
+  int32 mm   = 2;
+  int32 ss   = 3;
+  int32 nnn  = 4;
+}
+
+message ProtoDateTime {
+   ProtoDate date = 1;
+   ProtoTime time = 2;
+}
+
+message ProtoAny {
+  bytes value = 1;
+}
+
